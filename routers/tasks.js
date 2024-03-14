@@ -1,24 +1,23 @@
 const Router = require('express').Router;
 const router = Router();
+const { isAuthorized }= require('../middleware/isAuthenticated');
 
-//In-memory storage for tasks
 let tasks = [];
 
-// Routes for CRUD operations
-// Create a task
-router.post('/new', (req, res) => {
+
+router.post('/new',isAuthorized(['admin', 'user']), (req, res) => {
     const { title, description } = req.body;
     const newTask = { id: tasks.length + 1, title, description };
     tasks.push(newTask);
     res.status(201).json(newTask);
 });
 
-// Read all tasks
+
 router.get('/all', (req, res) => {
     res.json(tasks);
 });
 
-// Read a specific task
+
 router.get('/:id', (req, res) => {
     const taskId = parseInt(req.params.id);
     const task = tasks.find(task => task.id === taskId);
@@ -29,8 +28,8 @@ router.get('/:id', (req, res) => {
     }
 });
 
-// Update a task
-router.put('/:id', (req, res) => {
+
+router.put('/:id', isAuthorized(['admin', 'user']),(req, res) => {
     const taskId = parseInt(req.params.id);
     const { title, description } = req.body;
     const taskIndex = tasks.findIndex(task => task.id === taskId);
@@ -42,8 +41,8 @@ router.put('/:id', (req, res) => {
     }
 });
 
-// Delete a task
-router.delete('/:id', (req, res) => {
+
+router.delete('/:id', isAuthorized(['admin']), (req, res) => {
     const taskId = parseInt(req.params.id);
     const taskIndex = tasks.findIndex(task => task.id === taskId);
     if (taskIndex !== -1) {
