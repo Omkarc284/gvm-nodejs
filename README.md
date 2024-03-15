@@ -509,7 +509,7 @@ Passport.js with JWT is suitable for applications requiring a comprehensive auth
 - Tasks can be moved to Database
 - Logging and Monitoring: Integrate logging and monitoring tools to track application activities, monitor performance, and identify potential issues or security threats.
 - Authentication can be improved
-- Proper Schema can be designed as per the real life use case babis
+- Proper Schema can be designed as per the real life use case basis
 - Can be more use-case specific.
 -Input Validation: Augment input validation by utilizing validation libraries like express-validator to ensure data integrity and prevent security vulnerabilities.
 
